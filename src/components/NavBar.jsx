@@ -4,24 +4,19 @@ import { useGSAP } from "@gsap/react";
 
 const NavBar = () => {
   useGSAP(() => {
-    const navTween = gsap.timeline({
+    gsap.to("nav", {
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      backdropFilter: "blur(10px)",
+      WebkitBackdropFilter: "blur(10px)",
+      duration: 0.5,
+      ease: "power1.inOut",
       scrollTrigger: {
-        trigger: "nav",
-        start: "bottom top",
+        trigger: "body",
+        start: "50px top",
+        toggleActions: "play reverse play reverse",
       },
     });
-
-    navTween.fromTo(
-      "nav",
-      { background: "transparent" },
-      {
-        backgroundColor: "#00000050",
-        backdropFilter: "blur(10px)",
-        duration: 1,
-        ease: "power1.inOut",
-      },
-    );
-  });
+  }, []);
 
   return (
     <nav>

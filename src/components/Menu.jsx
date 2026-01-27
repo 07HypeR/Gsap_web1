@@ -45,12 +45,12 @@ const Menu = () => {
         scrollTrigger: {
           trigger: "#menu",
           start: "top bottom",
-          end: "top bottom",
+          end: "bottom top",
           scrub: true,
         },
       })
-      .to("#m-right-leaf", { y: -200 }, 0)
-      .to("#m-left-leaf", { y: 200 }, 0);
+      .to("#m-right-leaf", { y: -150 }, 0)
+      .to("#m-left-leaf", { y: -150 }, 0);
   }, [currentIndex]);
 
   const totalCocktails = sliderLists.length;
@@ -74,12 +74,12 @@ const Menu = () => {
   return (
     <section id="menu" aria-labelledby="menu-heading">
       <img
-        src="./images/slider-left-leaf.png"
+        src="/images/slider-left-leaf.png"
         alt="left leaf"
         id="m-left-leaf"
       />
       <img
-        src="./images/slider-right-leaf.png"
+        src="/images/slider-right-leaf.png"
         alt="right leaf"
         id="m-right-leaf"
       />
@@ -107,10 +107,10 @@ const Menu = () => {
       <div className="content">
         <div className="arrows">
           <button
-            className="text-left"
+            className="flex flex-col items-start"
             onClick={() => goToSlide(currentIndex - 1)}
           >
-            <span>{prevCocktail.name}</span>
+            <span className="w-20 text-center">{prevCocktail.name}</span>
             <img
               src="/images/right-arrow.png"
               alt="right-arrow"
@@ -119,10 +119,10 @@ const Menu = () => {
           </button>
 
           <button
-            className="text-left"
+            className="flex flex-col items-end text-right"
             onClick={() => goToSlide(currentIndex + 1)}
           >
-            <span>{nextCocktail.name}</span>
+            <span className="w-20 text-center">{nextCocktail.name}</span>
             <img
               src="/images/left-arrow.png"
               alt="left-arrow"

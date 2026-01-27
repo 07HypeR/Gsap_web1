@@ -25,21 +25,19 @@ const Contact = () => {
         opacity: 0,
         yPercent: 100,
         stagger: 0.02,
-      })
-      .to("#f-right-leaf", {
-        y: "-50",
-        duration: 1,
-        ease: "power1.inOut",
-      })
-      .to(
-        "#f-left-leaf",
-        {
-          y: "-50",
-          duration: 1,
-          ease: "power1.inOut",
+      });
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: "#contact",
+          start: "top bottom",
+          end: "bottom bottom",
+          scrub: true,
         },
-        "<",
-      );
+      })
+      .to("#f-right-leaf", { y: -150 }, 0)
+      .fromTo("#f-left-leaf", { y: 200 }, { y: 0 }, 0);
   });
 
   return (
@@ -66,7 +64,7 @@ const Contact = () => {
         <div>
           <h3>Contact Us</h3>
           <p>(555) 987-6543</p>
-          <p>hello@jsmcocktail.com</p>
+          <p>hello@tojicocktail.com</p>
         </div>
 
         <div>
