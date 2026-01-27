@@ -56,11 +56,20 @@ const Hero = () => {
         },
       });
 
-      videoRef.current.onloadedmetadata = () => {
-        tl.to(videoRef.current, {
-          currentTime: videoRef.current.duration,
-        });
-      };
+      const video = videoRef.current;
+      if (video) {
+        const setupVideoTimeline = () => {
+          tl.to(video, {
+            currentTime: video.duration,
+          });
+        };
+
+        if (video.readyState >= 1) {
+          setupVideoTimeline();
+        } else {
+          video.onloadedmetadata = setupVideoTimeline;
+        }
+      }
     }, []),
     (
       <>
@@ -102,10 +111,11 @@ const Hero = () => {
         <div className="video absolute inset-0">
           <video
             ref={videoRef}
-            src="/videos/output.mp4"
+            src={`${import.meta.env.BASE_URL}videos/output.mp4`}
             muted
             playsInline
             preload="auto"
+            type="video/mp4"
           ></video>
         </div>
       </>
