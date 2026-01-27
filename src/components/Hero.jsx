@@ -59,6 +59,14 @@ const Hero = () => {
       const video = videoRef.current;
       if (video) {
         const setupVideoTimeline = () => {
+          // Priming the video for mobile scrubbing
+          video
+            .play()
+            .then(() => {
+              video.pause();
+            })
+            .catch((e) => console.log("Video priming blocked/not needed:", e));
+
           tl.to(video, {
             currentTime: video.duration,
           });
@@ -111,12 +119,22 @@ const Hero = () => {
         <div className="video absolute inset-0">
           <video
             ref={videoRef}
-            src={`${import.meta.env.BASE_URL}videos/output.mp4`}
             muted
             playsInline
+            webkit-playsinline="true"
             preload="auto"
-            type="video/mp4"
-          ></video>
+            autoPlay
+            className="w-full h-full object-cover md:object-contain"
+          >
+            <source
+              src={`${import.meta.env.BASE_URL}videos/output.mp4`.replace(
+                "//",
+                "/",
+              )}
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </>
     )
