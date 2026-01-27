@@ -7,19 +7,40 @@ import About from "./components/About";
 import Art from "./components/Art";
 import Menu from "./components/Menu";
 import Contact from "./components/Contact";
+import { ReactLenis } from "lenis/react";
+import { useEffect, useRef } from "react";
+
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const App = () => {
+  const lenisRef = useRef();
+
+  useEffect(() => {
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+
+    gsap.ticker.add(update);
+
+    return () => gsap.ticker.remove(update);
+  }, []);
+
   return (
-    <main>
-      <NavBar />
-      <Hero />
-      <Cocktails />
-      <About />
-      <Art />
-      <Menu />
-      <Contact />
-    </main>
+    <ReactLenis
+      root
+      options={{ autoRaf: false, lerp: 0.06, duration: 1.5 }}
+      ref={lenisRef}
+    >
+      <main>
+        <NavBar />
+        <Hero />
+        <Cocktails />
+        <About />
+        <Art />
+        <Menu />
+        <Contact />
+      </main>
+    </ReactLenis>
   );
 };
 
