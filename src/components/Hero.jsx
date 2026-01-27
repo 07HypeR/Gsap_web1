@@ -1,46 +1,12 @@
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 
 const Hero = () => {
   const videoRef = useRef();
   const isMobile = useMediaQuery({ maxWidth: 767 });
-
-  // Mobile browsers require user interaction to load/play video
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleFirstInteraction = () => {
-      // Attempt to load and prepare video for scrubbing
-      video.load();
-      video
-        .play()
-        .then(() => {
-          video.pause();
-          video.currentTime = 0;
-        })
-        .catch(() => {
-          // Silent catch - some browsers don't allow this
-        });
-
-      // Remove listeners after first interaction
-      window.removeEventListener("touchstart", handleFirstInteraction);
-      window.removeEventListener("scroll", handleFirstInteraction);
-    };
-
-    window.addEventListener("touchstart", handleFirstInteraction, {
-      once: true,
-    });
-    window.addEventListener("scroll", handleFirstInteraction, { once: true });
-
-    return () => {
-      window.removeEventListener("touchstart", handleFirstInteraction);
-      window.removeEventListener("scroll", handleFirstInteraction);
-    };
-  }, []);
 
   return (
     useGSAP(() => {
@@ -145,17 +111,12 @@ const Hero = () => {
         <div className="video absolute inset-0">
           <video
             ref={videoRef}
+            src={`${import.meta.env.BASE_URL}videos/output.mp4`}
             muted
             playsInline
-            webkit-playsinline="true"
-            preload="metadata"
-            crossOrigin="anonymous"
-          >
-            <source
-              src={`${import.meta.env.BASE_URL}videos/output.mp4`}
-              type="video/mp4"
-            />
-          </video>
+            preload="auto"
+            type="video/mp4"
+          ></video>
         </div>
       </>
     )
