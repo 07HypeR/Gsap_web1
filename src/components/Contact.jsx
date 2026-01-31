@@ -64,7 +64,7 @@ const Contact = () => {
         <div>
           <h3>Contact Us</h3>
           <p>(555) 987-6543</p>
-          <p>hello@tojicocktail.com</p>
+          <p>hello@abhikcocktail.com</p>
         </div>
 
         <div>
